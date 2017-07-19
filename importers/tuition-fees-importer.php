@@ -10,28 +10,7 @@ class Online_Tuition_Fees_Importer {
 		$mapped_total = 0,
 		$updated_total = 0,
 		$skipped_total = 0,
-		$degree_count = 0,
-		$mapping = array(
-			"Master of Social Work Online MSW"                   => "OMSW",
-			"Doctor of Physical Therapy"                         => "DPT",
-			"Doctor of Medicine"                                 => "MD",
-			"Florida Interactive Entertainment Academy"          => "FIEA",
-			"Executive MBA"                                      => "EMBA",
-			"Professional MBA"                                   => "PMBA",
-			"Professional MS in Management/Human Resource Track" => "PMSM",
-			"Professional Master of Science in Real Estate"      => "PMRE",
-			"MS in Health Sci/Online Exec Health Svcs Admin Trk" => "EHSA",
-			"Master of Research Administration"                  => "MRA",
-			"Master of Nonprofit Management/Non-Res Cohort Trk"  => "MNM",
-			"Graduate Cert in Research Administration"           => "GCRA",
-			"MS in Healthcare Informatics"                       => "MHI",
-			"Graduate Cert in Health Information Administration" => "GCIA",
-			"Online Master of Social Work"                       => "OMSW",
-			"MS in Industrial Engr/Healthcare Systems Engr Trk"  => "MHSE",
-			"Professional MS in Engineering Management"          => "MSEM",
-			"Professional MS in Management/Business Analytics"   => "MSAN",
-			"Master of Science in Data Analytics"                => "MSDA"
-		); // Mapping of codes to names
+		$degree_count = 0; // Mapping of codes to names
 
 
 	/**
@@ -258,7 +237,7 @@ Success %  : {$success_percentage}%
 					update_post_meta( $degree->ID, 'degree_nonresident_tuition', $this->data[$override]['nonres'] );
 				}
 
-				$this->update_title++;
+				$this->update_total++;
 				continue;
 			}
 
@@ -286,30 +265,15 @@ Success %  : {$success_percentage}%
 	}
 
 	private function get_schedule_code( $program_type, $name ) {
-		if ( in_array( $program_type, array( 'Online Major' ) ) ) {
+		var_dump( $program_type );
+		if ( in_array( $program_type, array( 'Online Bachelor' ) ) ) {
 			return 'UOU';
 		}
 
-		// Loop through the mapping variable and look for a match
-		// This should handle exceptions for masters degrees
-		foreach( $this->mapping as $key => $val ) {
-			if ( stripos( $name, $key ) !== false ||
-				 stripos( $name, $val ) ) {
-				$this->mapped_count++;
-				return $val;
-			}
-		}
-
-		if ( in_array( $program_type, array( 'Online Master' ) ) ) {
+		if ( in_array( $program_type, array( 'Online Master', 'Online Doctorate' ) ) ) {
 			return 'UOG';
 		}
 
-		// Unless we have a mapping for it, skip these program types
-		if ( in_array( $program_type, array( 'Online Certificate' ) ) ) {
-			return null;
-		}
-
-		// Everything else is a graduate degree
 		return null;
 	}
 }
