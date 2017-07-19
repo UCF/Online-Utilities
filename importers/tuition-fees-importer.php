@@ -265,7 +265,6 @@ Success %  : {$success_percentage}%
 	}
 
 	private function get_schedule_code( $program_type, $name ) {
-		var_dump( $program_type );
 		if ( in_array( $program_type, array( 'Online Bachelor' ) ) ) {
 			return 'UOU';
 		}
