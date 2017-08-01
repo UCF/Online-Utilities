@@ -177,7 +177,7 @@ Success %  : {$success_percentage}%
 						&& stripos( $fee->FeeName, '(Per Term)' ) === false
 						&& stripos( $fee->FeeName, '(Annual)' ) === false
 					)
-					|| $fee->FeeName === 'Distance Learning Course Fee (Per Hour)'
+					|| stripos( $fee->FeeName, 'Distance Learning Course Fee (Per Hour)' ) !== false
 				) {
 					$resident_total += $fee->MaxResidentFee;
 					$non_resident_total += $fee->MaxNonResidentFee;
