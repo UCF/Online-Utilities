@@ -38,6 +38,9 @@ Imports degrees from various sources and writes them into degree custom post typ
 
 ## Changelog ##
 
+### 1.0.1 ###
+* Fixed missing Distance Learning fee from per credit hour totals
+
 ### 1.0.0 ###
 * Initial release
 
