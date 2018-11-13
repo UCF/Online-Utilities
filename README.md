@@ -1,10 +1,10 @@
-# Online-Theme Utilities WP-CLI Package #
+# UCF Online Utilities Plugin #
 
-Provides utilities (jobs) to run for the online website.
+Provides functionality and other utilities for the UCF Online website.
 
 ## Description ##
 
-Provides utilities (jobs) to run for the online website.
+Provides functionality and other utilities for the UCF Online website.
 
 
 ## Installation ##
@@ -16,24 +16,6 @@ Provides utilities (jobs) to run for the online website.
 
 ### WP CLI Installation ###
 1. `$ wp plugin install --activate https://github.com/UCF/Online-Utilities/archive/master.zip`.  See [WP-CLI Docs](http://wp-cli.org/commands/plugin/install/) for more command options.
-3. Run commands via wp cli.
-
-## Commands ##
-
-All commands are stored under the `online` core command. To see available options run `wp online`.
-
-### Degree Commands ###
-
-All degree commands are stored under the `degrees` command. To see avilable options run `wp online degrees`.
-
-Tuition and Fees: `wp online degrees tuition <api>`
-
-Adds tuition and fee information to main site degrees.
-
-- <api>
-    - The url of the tuition feed
-
-Imports degrees from various sources and writes them into degree custom post types.
 
 
 ## Changelog ##
