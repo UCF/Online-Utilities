@@ -15,3 +15,5 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 
 	WP_CLI::add_command( 'online degrees', 'Online_Degrees' );
 }
+
+include_once 'child-theme-functions/gravityforms-functions.php';
