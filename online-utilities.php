@@ -11,3 +11,5 @@ GitHub Plugin URI: UCF/Online-Utilities
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
+
+include_once 'child-theme-functions/gravityforms-functions.php';
