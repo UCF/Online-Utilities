@@ -8,3 +8,5 @@ Description: Functionality and utilities for the UCF Online website
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
+
+include_once 'child-theme-functions/gravityforms-functions.php';
