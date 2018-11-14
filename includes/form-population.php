@@ -1,4 +1,9 @@
 <?php
+/**
+ * Functions that handle the dynamic population of available form options
+ * and field values upon form submission.
+ */
+
 
 /**
  * Modifies GravityForm for Degree Request Info form to populate
@@ -8,7 +13,13 @@
  * NOTE: this function assumes that .populate- classes will only ever be used
  * for populating degrees--if other post types need to be made compatible with
  * these classnames, this function will need to be updated.
- **/
+ *
+ * Ported from Online-Theme
+ *
+ * @since 2.0.0
+ * @param array $form The current form to be filtered
+ * @return array The filtered form
+ */
 if ( ! function_exists( 'ou_forms_populate_degrees' ) ) {
     function ou_forms_populate_degrees( $form ) {
         // Existing class names for populating a dropdown with degrees
@@ -127,53 +138,18 @@ if ( ! function_exists( 'ou_hook_forms_populate_degrees' ) ) {
     ou_hook_forms_populate_degrees();
 }
 
-if ( ! function_exists( 'ou_ucf_online_degree_append_metadata' ) ) {
-    function ou_ucf_online_degree_append_metadata( $post ) {
-        if ( isset( $post->taxonomies['program_types'] ) &&
-            count( $post->taxonomies['program_types'] ) > 0 &&
-            $post->taxonomies['program_types'][0]->slug === 'online-major' ) {
-            $post->is_grad = false;
-        } else {
-            $post->is_grad = true;
-        }
-        return $post;
-    }
 
-    add_filter( 'ucf_degree_append_meta', 'ou_ucf_online_degree_append_metadata', 10, 1 );
-}
-
-if ( ! function_exists( 'ou_append_degrees_tax_query' ) ) {
-    /**
-    * Appends a tax query to a standard get_posts args array.
-    **/
-    function ou_append_degrees_tax_query( $args, $term, $tax = 'program_types' ) {
-        if ( empty( $args['tax_query'] ) ) {
-            $args['tax_query'] = array(
-                array(
-                    'taxonomy' => $tax,
-                    'field'    => 'slug',
-                    'terms'    => $term
-                )
-            );
-        } else {
-            if ( ! isset( $args['tax_query']['relationship'] ) ) {
-                $args['tax_query']['relationship'] = 'AND';
-            }
-            $args['tax_query'][] = array(
-                'taxonomy' => $tax,
-                'field'    => 'slug',
-                'terms'    => $term
-            );
-        }
-        return $args;
-    }
-}
-
+/**
+ * Updates input values in the Degree Request Info form
+ * based on data submitted by the user.
+ *
+ * Ported from Online-Theme
+ *
+ * @since 2.0.0
+ * @param array $form The current form to be filtered
+ * @return array The filtered form
+ */
 if ( ! function_exists( 'ou_forms_set_dynamic_vals' ) ) {
-    /**
-     * Updates input values in the Degree Request Info form
-     * based on data submitted by the user.
-     **/
     function ou_forms_set_dynamic_vals( $form ) {
         $field_ids = array();
         foreach( $form['fields'] as $key => $field ) {
@@ -213,7 +189,7 @@ if ( ! function_exists( 'ou_forms_set_dynamic_vals' ) ) {
                     break;
             }
         }
-        $ga_cookie = parse_google_analytics_cookie();
+        $ga_cookie = parse_google_analytics_cookie(); // TODO
         $selected_degree_name = rgpost( 'input_' . $field_ids['degree'] );
         $degree = null;
         $degree_contact_email = $degree_program_type = '';
@@ -227,7 +203,7 @@ if ( ! function_exists( 'ou_forms_set_dynamic_vals' ) ) {
             $degree_program_type  = array_shift( wp_get_post_terms( $degree->ID, 'program_types' ) );
         }
         if ( !$degree_contact_email ) {
-            $degree_contact_email = get_theme_option( 'default_fallback_email' );
+            $degree_contact_email = get_theme_option( 'default_fallback_email' ); // TODO update this?
         }
         if ( isset( $field_ids['contact_email'] ) ) {
             $_POST['input_' . $field_ids['contact_email']] = $degree_contact_email;
@@ -265,9 +241,8 @@ if ( ! function_exists( 'ou_forms_set_dynamic_vals' ) ) {
 
 if ( ! function_exists( 'ou_hook_forms_set_dynamic_vals' ) ) {
     function ou_hook_forms_set_dynamic_vals() {
-        // NOTE the priority should be greater than the priority for 'degree_info_form_populate_degrees'!
+        // NOTE the priority should be greater than the priority for 'ou_forms_populate_degrees'!
         add_filter( 'gform_pre_submission_filter', 'ou_forms_set_dynamic_vals', 10 );
     }
     ou_hook_forms_set_dynamic_vals();
 }
-

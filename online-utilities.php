@@ -12,4 +12,5 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-include_once 'child-theme-functions/gravityforms-functions.php';
+include_once 'includes/utilities.php';
+include_once 'includes/form-population.php';
