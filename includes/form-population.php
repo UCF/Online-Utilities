@@ -189,7 +189,7 @@ if ( ! function_exists( 'ou_forms_set_dynamic_vals' ) ) {
                     break;
             }
         }
-        $ga_cookie = parse_google_analytics_cookie(); // TODO
+        $ga_cookie = ou_parse_google_analytics_cookie();
         $selected_degree_name = rgpost( 'input_' . $field_ids['degree'] );
         $degree = null;
         $degree_contact_email = $degree_program_type = '';

@@ -38,3 +38,43 @@ if ( ! function_exists( 'ou_append_degrees_tax_query' ) ) {
         return $args;
     }
 }
+
+
+/**
+ * Parses the information in the Google Analytics cookie
+ * and returns it as an array
+ *
+ * Ported from Online-Theme
+ *
+ * @author Jim Barnes
+ * @return array
+ **/
+function ou_parse_google_analytics_cookie() {
+	$cookie = $_COOKIE['__utmz'];
+	$retval = array();
+	if ( $cookie ) {
+		$pairs = explode( '|', $cookie );
+		$pairs[0] = strstr( $pairs[0], 'utmcsr' );
+		foreach( $pairs as $pair) {
+			list( $k, $v ) = explode( '=', $pair );
+			switch( $k ) {
+				case 'utmcsr':
+					$retval['source'] = $v;
+					break;
+				case 'utmccn':
+					$retval['campaign'] = $v;
+					break;
+				case 'utmcmd':
+					$retval['medium'] = $v;
+					break;
+				case 'utmcct':
+					$retval['content'] = $v;
+					break;
+				case 'utmctr':
+					$retval['term'] = $v;
+					break;
+			}
+		}
+	}
+	return $retval;
+}
