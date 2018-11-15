@@ -14,5 +14,8 @@ if ( ! defined( 'WPINC' ) ) {
 
 
 include_once 'includes/utilities.php';
+
+include_once 'admin/config.php';
+
 include_once 'includes/gw-field-to-field.php';
 include_once 'includes/form-population.php';

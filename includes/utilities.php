@@ -5,6 +5,22 @@
 
 
 /**
+ * Returns a Online Utilities option's default value.
+ *
+ * @since 1.0.0
+ * @param string $option_name The name of the option
+ * @return mixed Option default value, or false if a default is not set
+ **/
+function ou_get_option_default( $option_name ) {
+	$defaults = unserialize( OU_OPTION_DEFAULTS );
+	if ( $defaults && isset( $defaults[$option_name] ) ) {
+		return $defaults[$option_name];
+	}
+	return false;
+}
+
+
+/**
  * Appends a tax_query to a standard get_posts() args array.
  *
  * Ported from Online-Theme
