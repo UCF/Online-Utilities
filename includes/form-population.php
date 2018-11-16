@@ -29,29 +29,35 @@ if ( ! function_exists( 'ou_forms_populate_degrees' ) ) {
             'populate-masters',
             'populate-certificates',
             'populate-doctorates'
-        );
+		);
+
         // Loop through all fields to find the degrees dropdown:
         foreach ( $form['fields'] as &$field ) {
+
             if ( ! ( $field->type == 'select' && strpos( $field->cssClass, 'populate-' ) !== false ) ) {
                 continue;
             }
-            // Try to determine which degree should be pre-selected in the 'degree'
+
+			// Try to determine which degree should be pre-selected in the 'degree'
             // dropdown.
             // A degree should only be pre-selected in certain contexts; otherwise the
             // form should pre-select the first option by default.
             global $post;
-            $selected_degree = null;
+			$selected_degree = null;
+
             if ( $post && $post->post_type == 'degree' ) {
                 $selected_degree = $post;
             }
-            // Populate the 'degree' dropdown with options:
+
+			// Populate the 'degree' dropdown with options:
             $args = array(
                 'post_type' => 'degree',
                 'numberposts' => -1,
                 'orderby' => 'title',
                 'order' => 'ASC'
             );
-            foreach ( explode( ' ', $field->cssClass ) as $class ) {
+
+			foreach ( explode( ' ', $field->cssClass ) as $class ) {
                 // Check for predefined filter class names
                 if ( in_array( $class, $filter_classes ) ) {
                     switch ( $class ) {
@@ -77,12 +83,14 @@ if ( ! function_exists( 'ou_forms_populate_degrees' ) ) {
                     $class_tax = $class_term = false;
                     if ( strpos( $class, 'populate-degrees--' ) === 0 ) {
                         list( $class_tax, $class_term ) = explode( '--', str_replace( 'populate-degrees--', '', $class ), 2 );
-                    }
+					}
+
                     $tax_slug = in_array( $class_tax, get_object_taxonomies( 'degree', 'names' ) ) ? $class_tax : false;
                     $term_slug = false;
-                    if ( $tax_slug ) {
+					if ( $tax_slug ) {
                         $term_slug = get_term_by( 'slug', $class_term, $tax_slug );
-                    }
+					}
+
                     if ( $term_slug ) {
                         $args = ou_append_degrees_tax_query( $args, $term_slug, $tax_slug );
                     }
@@ -106,9 +114,11 @@ if ( ! function_exists( 'ou_forms_populate_degrees' ) ) {
                     default:
                         break;
                 }
-            }
+			}
+
             $degrees = get_posts( $args );
-            $choices = array();
+			$choices = array();
+
             if ( $degrees ) {
                 foreach ( $degrees as $degree ) {
                     $attrs = array(
@@ -120,10 +130,12 @@ if ( ! function_exists( 'ou_forms_populate_degrees' ) ) {
                     }
                     $choices[] = $attrs;
                 }
-            }
+			}
+
             $field->choices = $choices;
         }
-        return $form;
+
+		return $form;
     }
 }
 
@@ -151,7 +163,8 @@ if ( ! function_exists( 'ou_hook_forms_populate_degrees' ) ) {
  */
 if ( ! function_exists( 'ou_forms_set_dynamic_vals' ) ) {
     function ou_forms_set_dynamic_vals( $form ) {
-        $field_ids = array();
+		$field_ids = array();
+
         foreach( $form['fields'] as $key => $field ) {
             switch( $field->inputName ) {
                 case 'contact_email':
@@ -188,24 +201,31 @@ if ( ! function_exists( 'ou_forms_set_dynamic_vals' ) ) {
                     $field_ids['ga_term'] = $field->id;
                     break;
             }
-        }
+		}
+
         $ga_cookie = ou_parse_google_analytics_cookie();
-        $selected_degree_name = rgpost( 'input_' . $field_ids['degree'] );
+
+		$selected_degree_name = rgpost( 'input_' . $field_ids['degree'] );
         $degree = null;
         $degree_contact_email = $degree_program_type = '';
-        if ( $selected_degree_name ) {
+
+		if ( $selected_degree_name ) {
             $degree = get_page_by_title( $selected_degree_name, OBJECT, 'degree' );
         }
-        if ( $degree ) {
+
+		if ( $degree ) {
             $degree_contact_email = get_post_meta( $degree->ID, 'degree_contact_email', true );
             $degree_code = get_post_meta( $degree->ID, 'degree_code', true );
             $degree_subplan_code = get_post_meta( $degree->ID, 'degree_subplan_code', true );
             $degree_program_type  = array_shift( wp_get_post_terms( $degree->ID, 'program_types' ) );
-        }
+		}
+
         if ( !$degree_contact_email ) {
-            $degree_contact_email = get_theme_option( 'default_fallback_email' ); // TODO update this?
+			// TODO add ability to override this on landing pages
+            $degree_contact_email = get_option( 'degree_forms_fallback_email' );
         }
-        if ( isset( $field_ids['contact_email'] ) ) {
+
+		if ( isset( $field_ids['contact_email'] ) ) {
             $_POST['input_' . $field_ids['contact_email']] = $degree_contact_email;
         }
         if ( ( isset( $field_ids['degree_id'] ) && $degree ) ) {
@@ -234,7 +254,8 @@ if ( ! function_exists( 'ou_forms_set_dynamic_vals' ) ) {
         }
         if ( isset( $field_ids['ga_term'] ) ) {
             $_POST['input_' . $field_ids['ga_term']] = $ga_cookie['term'];
-        }
+		}
+
         return $form;
     }
 }
