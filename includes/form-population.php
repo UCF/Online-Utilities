@@ -22,6 +22,9 @@
  */
 if ( ! function_exists( 'ou_forms_populate_degrees' ) ) {
     function ou_forms_populate_degrees( $form ) {
+		// Stop now if this form doesn't exist
+		if ( ! $form ) { return; }
+
         // Existing class names for populating a dropdown with degrees
         $filter_classes = array(
             'populate-degrees',
