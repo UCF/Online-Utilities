@@ -4,6 +4,7 @@
  * Filter for overriding schedule codes for imported tuition data
  *
  * @author Jo Dickson
+ * @since 2.0.0
  * @param mixed $schedule_code  The schedule code string, or null
  * @param object $degree  Degree post
  * @param string $program_type  The degree's primary program type (first program_type term with no children)
