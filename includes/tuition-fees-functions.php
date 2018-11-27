@@ -22,13 +22,13 @@ function online_tuition_fees_get_schedule_code( $schedule_code, $degree, $progra
 	elseif ( ! $mapped_found ) {
 		// Handle exceptions for online programs. Online uses unique
 		// program type names, which we have to accommodate for here.
-		if ( $is_online ) {
-			if ( $program_type === 'Online Bachelor' ) {
-				$schedule_code = 'UOU';
-			}
-			elseif ( in_array( $program_type, array( 'Online Master', 'Online Doctorate' ) ) ) {
-				$schedule_code = 'UOG';
-			}
+		// Assume ALL programs imported with this filter applied are
+		// online programs.
+		if ( $program_type === 'Online Bachelor' ) {
+			$schedule_code = 'UOU';
+		}
+		elseif ( in_array( $program_type, array( 'Online Master', 'Online Doctorate' ) ) ) {
+			$schedule_code = 'UOG';
 		}
 	}
 
