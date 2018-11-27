@@ -59,4 +59,4 @@ function add_option_default_filters() {
 	}
 }
 
-add_option_default_filters(); // TODO wrap in a hook?
+add_option_default_filters();
