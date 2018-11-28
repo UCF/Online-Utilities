@@ -28,7 +28,7 @@ function online_tuition_fees_get_schedule_code( $schedule_code, $degree, $progra
 		if ( $program_type === 'Online Bachelor' ) {
 			$schedule_code = 'UOU';
 		}
-		elseif ( in_array( $program_type, array( 'Online Master', 'Online Doctorate' ) ) ) {
+		elseif ( in_array( $program_type, array( 'Online Master', 'Online Certificate', 'Online Doctorate' ) ) ) {
 			$schedule_code = 'UOG';
 		}
 	}
