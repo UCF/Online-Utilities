@@ -19,3 +19,4 @@ include_once 'includes/config.php';
 include_once 'includes/gw-field-to-field.php';
 include_once 'includes/form-functions.php';
 include_once 'includes/form-population.php';
+include_once 'includes/tuition-fees-functions.php';
