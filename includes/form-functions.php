@@ -28,39 +28,6 @@ function ou_get_degree_from_form_id( $form_id ) {
 
 
 /**
- * Filters the next, previous and submit buttons.
- * Replaces the forms <input> buttons with <button> while maintaining attributes from original <input>.
- *
- * https://www.gravityhelp.com/documentation/article/gform_submit_button/
- *
- * Ported from Online-Theme
- *
- * @since 2.0.0
- * @param string $button Contains the <input> tag to be filtered.
- * @param object $form Contains all the properties of the current form.
- *
- * @return string The filtered button.
- */
-function ou_gf_input_to_button( $button, $form ) {
-	$dom = new DOMDocument();
-	$dom->loadHTML( $button );
-	$input = $dom->getElementsByTagName( 'input' )->item(0);
-	$new_button = $dom->createElement( 'button' );
-	$value = $dom->createTextNode( $input->getAttribute( 'value' ) );
-	$new_button->appendChild( $value );
-	$input->removeAttribute( 'value' );
-	foreach( $input->attributes as $attribute ) {
-		$new_button->setAttribute( $attribute->name, $attribute->value );
-	}
-	$input->parentNode->replaceChild( $new_button, $input );
-	return $dom->saveHTML();
-}
-add_filter( 'gform_next_button', 'ou_gf_input_to_button', 10, 2 );
-add_filter( 'gform_previous_button', 'ou_gf_input_to_button', 10, 2 );
-add_filter( 'gform_submit_button', 'ou_gf_input_to_button', 10, 2 );
-
-
-/**
  * Disable page jump when navigating between multi-step forms.
  *
  * Ported from Online-Theme
