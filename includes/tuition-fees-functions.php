@@ -37,3 +37,13 @@ function online_tuition_fees_get_schedule_code( $schedule_code, $degree, $progra
 }
 
 add_filter( 'ucf_tuition_fees_get_schedule_code', 'online_tuition_fees_get_schedule_code', 10, 7 );
+
+function online_tuition_fees_is_required( $retval, $fee ) {
+	if ( strpos( $fee->name, 'Distance Learning Course Fee (Per Hour)' ) !== -1 ) {
+		return true;
+	}
+
+	return $retval;
+}
+
+add_filter( 'ucf_tuition_fees_is_required', 'online_tuition_fees_is_required', 10, 2 );
