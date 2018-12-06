@@ -102,7 +102,7 @@ if ( ! function_exists( 'ou_forms_populate_degrees' ) ) {
 			if ( $post && $post->post_type === 'page' ) {
 				// Force filtered results on specific pages:
 				switch ( $post->post_name ) {
-					case 'majors':
+					case 'bachelors':
 						$args = ou_append_degrees_tax_query( $args, 'online-major' );
 						break;
 					case 'doctorates':
