@@ -49,7 +49,7 @@ add_filter( 'ucf_tuition_fees_get_schedule_code', 'online_tuition_fees_get_sched
  * @return bool The boolean indicating if the fee should be included in the total.
  */
 function online_tuition_fees_is_required( $retval, $fee ) {
-	if ( strpos( $fee->name, 'Distance Learning Course Fee (Per Hour)' ) !== -1 ) {
+	if ( strpos( $fee->FeeName, 'Distance Learning Course Fee (Per Hour)' ) !== false ) {
 		return true;
 	}
 
