@@ -22,6 +22,10 @@ Head over to the [Online Utilities wiki](https://github.com/UCF/Online-Utilities
 
 == Changelog ==
 
+= 2.0.0 =
+* Added functionality for Online v3 that is not suitable for theme inclusion--primarily form data population and tuition-related logic
+* Removed tuition import script in favor of using the Tuition and Fees plugin's importer
+
 = 1.0.1 =
 * Fixed missing Distance Learning fee from per credit hour totals
 

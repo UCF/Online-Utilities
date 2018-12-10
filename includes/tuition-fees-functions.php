@@ -37,3 +37,23 @@ function online_tuition_fees_get_schedule_code( $schedule_code, $degree, $progra
 }
 
 add_filter( 'ucf_tuition_fees_get_schedule_code', 'online_tuition_fees_get_schedule_code', 10, 7 );
+
+
+/**
+ * Filter for the tuition and fees plugin.
+ * Determines if a fee should be included in the single credit hour total.
+ * @author Jim Barnes
+ * @since 2.0.0
+ * @param bool $retval The value passed into the filter.
+ * @param object $fee The fee object from the tuition and fees JSON
+ * @return bool The boolean indicating if the fee should be included in the total.
+ */
+function online_tuition_fees_is_required( $retval, $fee ) {
+	if ( strpos( $fee->FeeName, 'Distance Learning Course Fee (Per Hour)' ) !== false ) {
+		return true;
+	}
+
+	return $retval;
+}
+
+add_filter( 'ucf_tuition_fees_is_required', 'online_tuition_fees_is_required', 10, 2 );
