@@ -76,8 +76,6 @@ function ou_remove_right_aligned_labels( $settings, $form ) {
 	// Default to left_label if the value is right_label
 	$selected_value = ( $selected_value === 'right_label' ) ? 'left_label' : $selected_value;
 
-	var_dump( $selected_value );
-
 	$alignment_options = array(
 		'top_label'  => __( 'Top aligned', 'gravityforms' ),
 		'left_label' => __( 'Left aligned', 'gravityforms' )
