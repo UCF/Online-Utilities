@@ -101,7 +101,7 @@ function ou_remove_right_aligned_labels( $settings, $form ) {
 <?php
 	$tr_form_label_placement = ob_get_clean();
 
-	$settings['Form Layout']['form_label_placement'] = $tr_form_label_placement;
+	$settings[ __( 'Form Layout', 'gravityforms' ) ]['form_label_placement'] = $tr_form_label_placement;
 
 	return $settings;
 }
