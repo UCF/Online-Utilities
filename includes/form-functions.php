@@ -47,18 +47,24 @@ add_filter( 'gform_confirmation_anchor', '__return_false' );
  * @param object $form The form currently being processed.
  * @return string
  */
-function ou_add_privacy_policy( $input, $form ) {
+function ou_add_privacy_policy( $output, $tag ) {
+	if ( 'gravityform' !== $tag ) {
+		return $output;
+	}
+
 	ob_start();
 ?>
-	<div>
-		<p class="mb-0 mt-3 pull-right small"><a class="privacy-policy-link" href="#" onclick="window.open('https://www.ucf.edu/internet-privacy-policy/','Internet Privacy Policy','resizable,height=750,width=768'); return false;">Privacy Policy</a></p>
+	<div class="d-flex flex-row justify-content-end w-100 mt-3">
+		<p class="mb-0 small"><a class="privacy-policy-link" href="#" onclick="window.open('https://www.ucf.edu/internet-privacy-policy/','Internet Privacy Policy','resizable,height=750,width=768'); return false;">Privacy Policy</a></p>
 	</div>
-	<div class="clearfix"></div>
 <?php
-	return $input . ob_get_clean();
+	$policy_link = ob_get_clean();
+
+	return $output . $policy_link;
 }
-add_action( 'gform_submit_button', 'ou_add_privacy_policy', 10, 2 );
-add_action( 'gform_next_button', 'ou_add_privacy_policy', 10, 2 );
+
+add_filter( 'do_shortcode_tag', 'ou_add_privacy_policy', 10, 2 );
+
 
 /**
  * Remove right aligned labels from gravity form options
