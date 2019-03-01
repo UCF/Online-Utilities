@@ -74,6 +74,7 @@ add_filter( 'do_shortcode_tag', 'ou_add_privacy_policy', 10, 2 );
  *
  * Ported from Online-Theme
  *
+ * @since 2.0.1
  * @param string $button Contains the <input> tag to be filtered.
  * @param object $form Contains all the properties of the current form.
  *
