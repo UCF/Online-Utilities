@@ -67,6 +67,38 @@ add_filter( 'do_shortcode_tag', 'ou_add_privacy_policy', 10, 2 );
 
 
 /**
+ * Filters the next, previous and submit buttons.
+ * Replaces the forms <input> buttons with <button> while maintaining attributes from original <input>.
+ *
+ * https://www.gravityhelp.com/documentation/article/gform_submit_button/
+ *
+ * Ported from Online-Theme
+ *
+ * @param string $button Contains the <input> tag to be filtered.
+ * @param object $form Contains all the properties of the current form.
+ *
+ * @return string The filtered button.
+ */
+function ou_input_to_button( $button, $form ) {
+	$dom = new DOMDocument();
+	$dom->loadHTML( $button );
+	$input = $dom->getElementsByTagName( 'input' )->item(0);
+	$new_button = $dom->createElement( 'button' );
+	$value = $dom->createTextNode( $input->getAttribute( 'value' ) );
+	$new_button->appendChild( $value );
+	$input->removeAttribute( 'value' );
+	foreach( $input->attributes as $attribute ) {
+		$new_button->setAttribute( $attribute->name, $attribute->value );
+	}
+	$input->parentNode->replaceChild( $new_button, $input );
+	return $dom->saveHTML();
+}
+add_filter( 'gform_next_button', 'ou_input_to_button', 10, 2 );
+add_filter( 'gform_previous_button', 'ou_input_to_button', 10, 2 );
+add_filter( 'gform_submit_button', 'ou_input_to_button', 10, 2 );
+
+
+/**
  * Remove right aligned labels from gravity form options
  * @author Jim Barnes
  * @since 2.0.1
