@@ -3,7 +3,7 @@ Contributors: ucfwebcom
 Tags: ucf, online
 Requires at least: 4.9.8
 Tested up to: 4.9.8
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 Requires PHP: 5.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/copyleft/gpl-3.0.html
@@ -21,6 +21,11 @@ Head over to the [Online Utilities wiki](https://github.com/UCF/Online-Utilities
 
 
 == Changelog ==
+
+= 2.0.1 =
+* Modified markup generated for privacy policy links on forms, and where those links are injected (they're now positioned immediately after the form, instead of in the form footer.)
+* Re-added form button filtering from the old Online theme, which modifies prev/next/submit buttons to use a `<button>` element instead of `<input>`. Doing this allows for more flexible styling options, necessary for some styles added in the Online Child Theme (for previous buttons.)
+* Removed option in form settings for right-aligned form labels, as they're not supported by the Online Child Theme or Athena GravityForms Plugin.
 
 = 2.0.0 =
 * Added functionality for Online v3 that is not suitable for theme inclusion--primarily form data population and tuition-related logic
