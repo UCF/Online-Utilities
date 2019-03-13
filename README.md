@@ -14,6 +14,11 @@ Head over to the [Online Utilities wiki](https://github.com/UCF/Online-Utilities
 
 ## Changelog ##
 
+### 2.0.1 ###
+* Modified markup generated for privacy policy links on forms, and where those links are injected (they're now positioned immediately after the form, instead of in the form footer.)
+* Re-added form button filtering from the old Online theme, which modifies prev/next/submit buttons to use a `<button>` element instead of `<input>`. Doing this allows for more flexible styling options, necessary for some styles added in the Online Child Theme (for previous buttons.)
+* Removed option in form settings for right-aligned form labels, as they're not supported by the Online Child Theme or Athena GravityForms Plugin.
+
 ### 2.0.0 ###
 * Added functionality for Online v3 that is not suitable for theme inclusion--primarily form data population and tuition-related logic
 * Removed tuition import script in favor of using the Tuition and Fees plugin's importer
