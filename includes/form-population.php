@@ -220,7 +220,8 @@ if ( ! function_exists( 'ou_forms_set_dynamic_vals' ) ) {
 			$degree_contact_email = get_post_meta( $degree->ID, 'degree_contact_email', true );
 			$degree_code = get_post_meta( $degree->ID, 'degree_code', true );
 			$degree_subplan_code = get_post_meta( $degree->ID, 'degree_subplan_code', true );
-			$degree_program_type  = array_shift( wp_get_post_terms( $degree->ID, 'program_types' ) );
+			$program_types = wp_get_post_terms( $degree->ID, 'program_types' );
+			$degree_program_type  = array_shift( $program_types );
 		}
 
 		if ( !$degree_contact_email ) {
