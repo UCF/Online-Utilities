@@ -14,6 +14,10 @@ Head over to the [Online Utilities wiki](https://github.com/UCF/Online-Utilities
 
 ## Changelog ##
 
+### 2.0.2 ###
+Bug Fixes:
+* Corrected PHP warning that was being thrown when a function was put into the `array_shift` function instead of a variable.
+
 ### 2.0.1 ###
 * Modified markup generated for privacy policy links on forms, and where those links are injected (they're now positioned immediately after the form, instead of in the form footer.)
 * Re-added form button filtering from the old Online theme, which modifies prev/next/submit buttons to use a `<button>` element instead of `<input>`. Doing this allows for more flexible styling options, necessary for some styles added in the Online Child Theme (for previous buttons.)
