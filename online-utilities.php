@@ -2,7 +2,7 @@
 /*
 Plugin Name: Online Utilities
 Description: Functionality and utilities for the UCF Online website
-Version: 2.0.2
+Version: 2.0.3
 Author: UCF Web Communications
 License: GPL3
 GitHub Plugin URI: UCF/Online-Utilities

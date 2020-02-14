@@ -14,6 +14,10 @@ Head over to the [Online Utilities wiki](https://github.com/UCF/Online-Utilities
 
 ## Changelog ##
 
+### 2.0.3 ###
+Documentation:
+* Updated contributing doc to reflect the switch from slack to teams.
+
 ### 2.0.2 ###
 Bug Fixes:
 * Corrected PHP warning that was being thrown when a function was put into the `array_shift` function instead of a variable.
