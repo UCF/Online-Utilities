@@ -3,7 +3,7 @@ Contributors: ucfwebcom
 Tags: ucf, online
 Requires at least: 4.9.8
 Tested up to: 4.9.8
-Stable tag: 2.0.1
+Stable tag: 2.0.3
 Requires PHP: 5.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/copyleft/gpl-3.0.html
@@ -21,6 +21,14 @@ Head over to the [Online Utilities wiki](https://github.com/UCF/Online-Utilities
 
 
 == Changelog ==
+
+= 2.0.3 =
+Documentation:
+* Updated contributing doc to reflect the switch from slack to teams.
+
+= 2.0.2 =
+Bug Fixes:
+* Corrected PHP warning that was being thrown when a function was put into the `array_shift` function instead of a variable.
 
 = 2.0.1 =
 * Modified markup generated for privacy policy links on forms, and where those links are injected (they're now positioned immediately after the form, instead of in the form footer.)
