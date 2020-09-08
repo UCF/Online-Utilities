@@ -188,6 +188,9 @@ if ( ! function_exists( 'ou_forms_set_dynamic_vals' ) ) {
 				case 'degree_subplan_code':
 					$field_ids['degree_subplan_code'] = $field->id;
 					break;
+				case 'salesforce_record_id':
+					$field_ids['salesforce_record_id'] = $field->id;
+					break;
 				case 'ga_source':
 					$field_ids['ga_source'] = $field->id;
 					break;
