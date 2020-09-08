@@ -14,6 +14,9 @@ Head over to the [Online Utilities wiki](https://github.com/UCF/Online-Utilities
 
 ## Changelog ##
 
+### 2.0.4 ###
+* Added the Saleforce Record ID to the degree form.
+
 ### 2.0.3 ###
 Documentation:
 * Updated contributing doc to reflect the switch from slack to teams.
