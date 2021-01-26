@@ -52,7 +52,7 @@ function ou_add_privacy_policy( $output, $tag ) {
 		return $output;
 	}
 
-	$additional_content = get_theme_option( 'degree_forms_after', false );
+	$additional_content = get_theme_mod( 'degree_forms_after', false );
 
 	$policy_link = ! empty( $additional_content ) ? $additional_content : '';
 
