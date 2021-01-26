@@ -5,7 +5,8 @@
 
 define( 'OU_CUSTOMIZER_PREFIX', 'online_' ); // Match Online-Child-Theme prefix to share Customizer sections
 define( 'OU_OPTION_DEFAULTS', serialize( array(
-	'degree_forms_fallback_email' => 'online@ucf.edu'
+	'degree_forms_fallback_email' => 'online@ucf.edu',
+	'degree_forms_after' => ''
 ) ) );
 
 
@@ -31,6 +32,23 @@ function ou_define_customizer_fields( $wp_customize ) {
 			'type'        => 'text',
 			'label'       => 'Fallback Email for Degree Information Forms',
 			'description' => 'Email address to send submission notifications to if a degree information request form has no other email address set to send to.  Degree information forms will send to the selected degree\'s contact email, if available, or a landing page\'s custom fallback email, if available, before falling back to this email address.',
+			'section'     => OU_CUSTOMIZER_PREFIX . 'forms'
+		)
+	);
+
+	$wp_customize->add_setting(
+		'degree_forms_after',
+		array(
+			'default' => ou_get_option_default( 'degree_forms_after' )
+		)
+	);
+
+	$wp_customize->add_control(
+		'degree_forms_after',
+		array(
+			'type'        => 'textarea',
+			'label'       => 'Forms Additional Markup',
+			'description' => 'Any additional markup that should be added after the Request for Information form.',
 			'section'     => OU_CUSTOMIZER_PREFIX . 'forms'
 		)
 	);

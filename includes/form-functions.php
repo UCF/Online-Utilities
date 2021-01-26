@@ -52,13 +52,9 @@ function ou_add_privacy_policy( $output, $tag ) {
 		return $output;
 	}
 
-	ob_start();
-?>
-	<div class="d-flex flex-row justify-content-end w-100 mt-3">
-		<p class="mb-0 small"><a class="privacy-policy-link" href="#" onclick="window.open('https://www.ucf.edu/internet-privacy-policy/','Internet Privacy Policy','resizable,height=750,width=768'); return false;">Privacy Policy</a></p>
-	</div>
-<?php
-	$policy_link = ob_get_clean();
+	$additional_content = get_theme_mod( 'degree_forms_after', false );
+
+	$policy_link = ! empty( $additional_content ) ? $additional_content : '';
 
 	return $output . $policy_link;
 }
