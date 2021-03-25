@@ -227,7 +227,7 @@ if ( ! function_exists( 'ou_forms_set_dynamic_vals' ) ) {
 			$degree_code = get_post_meta( $degree->ID, 'degree_code', true );
 			$degree_subplan_code = get_post_meta( $degree->ID, 'degree_subplan_code', true );
 			$salesforce_record_id = get_post_meta( $degree->ID, 'salesforce_record_id', true );
-			$degree_brochure_document_file = get_post_meta( $degree->ID, 'degree_brochure_document_file', true );
+			$degree_brochure_document_file = get_field( 'degree_brochure_document_file', $degree->ID );
 			$program_types = wp_get_post_terms( $degree->ID, 'program_types' );
 			$degree_program_type  = array_shift( $program_types );
 		}
