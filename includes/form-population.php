@@ -191,6 +191,9 @@ if ( ! function_exists( 'ou_forms_set_dynamic_vals' ) ) {
 				case 'salesforce_record_id':
 					$field_ids['salesforce_record_id'] = $field->id;
 					break;
+				case 'brochure_document':
+					$field_ids['brochure_document'] = $field->id;
+					break;
 				case 'ga_source':
 					$field_ids['ga_source'] = $field->id;
 					break;
@@ -224,6 +227,7 @@ if ( ! function_exists( 'ou_forms_set_dynamic_vals' ) ) {
 			$degree_code = get_post_meta( $degree->ID, 'degree_code', true );
 			$degree_subplan_code = get_post_meta( $degree->ID, 'degree_subplan_code', true );
 			$salesforce_record_id = get_post_meta( $degree->ID, 'salesforce_record_id', true );
+			$brochure_document = get_post_meta( $degree->ID, 'degree_brochure_document_file', true );
 			$program_types = wp_get_post_terms( $degree->ID, 'program_types' );
 			$degree_program_type  = array_shift( $program_types );
 		}
@@ -250,6 +254,9 @@ if ( ! function_exists( 'ou_forms_set_dynamic_vals' ) ) {
 		}
 		if ( isset( $field_ids['salesforce_record_id'] ) ) {
 			$_POST['input_' . $field_ids['salesforce_record_id']] = $salesforce_record_id;
+		}
+		if ( isset( $field_ids['brochure_document'] ) ) {
+			$_POST['input_' . $field_ids['brochure_document']] = $brochure_document;
 		}
 		if ( isset( $field_ids['ga_source'] ) ) {
 			$_POST['input_' . $field_ids['ga_source']] = $ga_cookie['source'];
