@@ -24,7 +24,7 @@
     "gulp-sass-lint": "^1.4.0",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify": "^3.0.1",
-    "merge": "^1.2.0"
+    "merge": "^2.1.1"
   },
   "browserslist": [
     "last 2 versions"
