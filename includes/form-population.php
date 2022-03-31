@@ -48,8 +48,15 @@ if ( ! function_exists( 'ou_forms_populate_degrees' ) ) {
 			global $post;
 			$selected_degree = null;
 
+			$default_degree =
+				get_field( 'default_selected_degree', $post->ID )
+				? $post
+				: null;
+
 			if ( $post && $post->post_type == 'degree' ) {
 				$selected_degree = $post;
+			} else if ( $post && $default_degree ) {
+				$selected_degree = $default_degree;
 			}
 
 			// Populate the 'degree' dropdown with options:
@@ -128,7 +135,8 @@ if ( ! function_exists( 'ou_forms_populate_degrees' ) ) {
 						'text' => $degree->post_title,
 						'value' => $degree->post_title,
 					);
-					if ( $selected_degree && $degree->ID == $selected_degree->ID ) {
+
+					if ( $selected_degree && $degree->ID === $selected_degree->ID ) {
 						$attrs['isSelected'] = true;
 					}
 					$choices[] = $attrs;
