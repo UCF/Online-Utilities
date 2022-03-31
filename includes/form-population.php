@@ -49,8 +49,8 @@ if ( ! function_exists( 'ou_forms_populate_degrees' ) ) {
 			$selected_degree = null;
 
 			$default_degree =
-				get_field( 'default_selected_degree', $post->ID )
-				? $post
+				$post
+				? get_field( 'default_selected_degree', $post->ID )
 				: null;
 
 			if ( $post && $post->post_type == 'degree' ) {
