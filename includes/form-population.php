@@ -25,6 +25,13 @@ if ( ! function_exists( 'ou_forms_populate_degrees' ) ) {
 		// Stop now if this form doesn't exist
 		if ( ! $form ) { return; }
 
+		$supported_post_types = array(
+			'post',
+			'page',
+			'landing',
+			'degree'
+		);
+
 		// Existing class names for populating a dropdown with degrees
 		$filter_classes = array(
 			'populate-degrees',
@@ -41,11 +48,22 @@ if ( ! function_exists( 'ou_forms_populate_degrees' ) ) {
 				continue;
 			}
 
+			global $post;
+			if ( $post &&
+				in_array( $post->post_type, $supported_post_types ) ) {
+
+				// Call the new function
+				$populated = ou_forms_populate_rfi_degrees( $form, $post, $field );
+
+				// If the new function populated the degrees
+				// short circuit the rest of the logic.
+				if ( $populated ) continue;
+			}
+
 			// Try to determine which degree should be pre-selected in the 'degree'
 			// dropdown.
 			// A degree should only be pre-selected in certain contexts; otherwise the
 			// form should pre-select the first option by default.
-			global $post;
 			$selected_degree = null;
 
 			$default_degree =
@@ -147,6 +165,103 @@ if ( ! function_exists( 'ou_forms_populate_degrees' ) ) {
 		}
 
 		return $form;
+	}
+}
+
+if ( ! function_exists( 'ou_forms_populate_rfi_degrees' ) ) {
+	/**
+	 * Populates the form fields using the new
+	 * ou_rfi fields.
+	 *
+	 * @author Jim Barnes
+	 * @since v2.2.0
+	 * @param  array $form The gravity form
+	 * @param  WP_Post $post The global post object
+	 * @param GF_Field $field The gravity form field
+	 * @return bool True if the form field was populated, else false
+	 */
+	function ou_forms_populate_rfi_degrees( $form, $post, $field ) {
+		// Return immediately if the switch is set to false
+		if ( ! get_field( 'ou_rfi_customize_degree_list', $post->ID ) ) return false;
+
+		$filter_by = get_field( 'ou_rfi_filter_by', $post->ID );
+
+		$args = array(
+			'post_type'      => 'degree',
+			'posts_per_page' => -1
+		);
+
+		switch( $filter_by ) {
+			case 'tag':
+				$args['tax_query'] = array(
+					array(
+						'taxonomy' => 'post_tag',
+						'terms'    => get_field( 'ou_rfi_tag', $post->ID )
+					)
+				);
+				break;
+			case 'college':
+				$args['tax_query'] = array(
+					array(
+						'taxonomy' => 'colleges',
+						'terms'    => get_field( 'ou_rfi_colleges', $post->ID )
+					)
+				);
+				break;
+			case 'program_type':
+				$args['tax_query'] = array(
+					array(
+						'taxonomy' => 'program_types',
+						'terms'    => get_field( 'ou_rfi_program_types', $post->ID )
+					)
+				);
+				break;
+			case 'aoi':
+				$args['tax_query'] = array(
+					array(
+						'taxonomy' => 'interests',
+						'terms'    => get_field( 'ou_rfi_areas_of_interest', $post->ID )
+					)
+				);
+				break;
+			case 'career':
+				$args['tax_query'] = array(
+					array(
+						'taxonomy' => 'career_paths',
+						'terms'    => get_field( 'ou_rfi_career_paths', $post-ID )
+					)
+				);
+				break;
+			case 'custom':
+				$args['post__in'] = get_field( 'ou_rfi_custom_programs', $post->ID );
+				break;
+			default:
+				return false;
+		}
+
+		$degrees = get_posts( $args );
+		$choices = array();
+
+		if ( $degrees ) {
+			foreach ( $degrees as $degree ) {
+				$attrs = array(
+					'text' => $degree->post_title,
+					'value' => $degree->post_title,
+				);
+
+				if ( $selected_degree && $degree->ID === $selected_degree->ID ) {
+					$attrs['isSelected'] = true;
+				}
+				$choices[] = $attrs;
+			}
+		}
+
+		$field->choices = $choices;
+		if ( count( $field->choices ) === 1 ) {
+			$field->cssClass .= " gform_hidden";
+		}
+
+		return true;
 	}
 }
 
