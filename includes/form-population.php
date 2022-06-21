@@ -229,7 +229,7 @@ if ( ! function_exists( 'ou_forms_populate_rfi_degrees' ) ) {
 				$args['tax_query'] = array(
 					array(
 						'taxonomy' => 'career_paths',
-						'terms'    => get_field( 'ou_rfi_career_paths', $post-ID )
+						'terms'    => get_field( 'ou_rfi_career_paths', $post->ID )
 					)
 				);
 				break;
