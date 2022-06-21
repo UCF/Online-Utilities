@@ -49,7 +49,6 @@ if ( ! function_exists( 'ou_forms_populate_degrees' ) ) {
 			}
 
 			global $post;
-
 			// Try to determine which degree should be pre-selected in the 'degree'
 			// dropdown.
 			// A degree should only be pre-selected in certain contexts; otherwise the
@@ -182,8 +181,10 @@ if ( ! function_exists( 'ou_forms_populate_rfi_degrees' ) ) {
 	 * @return bool True if the form field was populated, else false
 	 */
 	function ou_forms_populate_rfi_degrees( $form, $post, $field, $selected_degree ) {
+		$process = get_field( 'ou_rfi_customize_degree_list', $post->ID );
+
 		// Return immediately if the switch is set to false
-		if ( ! get_field( 'ou_rfi_customize_degree_list', $post->ID ) ) return false;
+		if ( ! $process && $post->post_type !== 'degree' ) return false;
 
 		$filter_by = get_field( 'ou_rfi_filter_by', $post->ID );
 
@@ -194,52 +195,56 @@ if ( ! function_exists( 'ou_forms_populate_rfi_degrees' ) ) {
 			'order' => 'ASC'
 		);
 
-		switch( $filter_by ) {
-			case 'tag':
-				$args['tax_query'] = array(
-					array(
-						'taxonomy' => 'post_tag',
-						'terms'    => get_field( 'ou_rfi_tag', $post->ID )
-					)
-				);
-				break;
-			case 'college':
-				$args['tax_query'] = array(
-					array(
-						'taxonomy' => 'colleges',
-						'terms'    => get_field( 'ou_rfi_colleges', $post->ID )
-					)
-				);
-				break;
-			case 'program_type':
-				$args['tax_query'] = array(
-					array(
-						'taxonomy' => 'program_types',
-						'terms'    => get_field( 'ou_rfi_program_types', $post->ID )
-					)
-				);
-				break;
-			case 'aoi':
-				$args['tax_query'] = array(
-					array(
-						'taxonomy' => 'interests',
-						'terms'    => get_field( 'ou_rfi_areas_of_interest', $post->ID )
-					)
-				);
-				break;
-			case 'career':
-				$args['tax_query'] = array(
-					array(
-						'taxonomy' => 'career_paths',
-						'terms'    => get_field( 'ou_rfi_career_paths', $post->ID )
-					)
-				);
-				break;
-			case 'custom':
-				$args['post__in'] = get_field( 'ou_rfi_custom_programs', $post->ID );
-				break;
-			default:
-				return false;
+		if ( $process ) {
+			switch( $filter_by ) {
+				case 'tag':
+					$args['tax_query'] = array(
+						array(
+							'taxonomy' => 'post_tag',
+							'terms'    => get_field( 'ou_rfi_tag', $post->ID )
+						)
+					);
+					break;
+				case 'college':
+					$args['tax_query'] = array(
+						array(
+							'taxonomy' => 'colleges',
+							'terms'    => get_field( 'ou_rfi_colleges', $post->ID )
+						)
+					);
+					break;
+				case 'program_type':
+					$args['tax_query'] = array(
+						array(
+							'taxonomy' => 'program_types',
+							'terms'    => get_field( 'ou_rfi_program_types', $post->ID )
+						)
+					);
+					break;
+				case 'aoi':
+					$args['tax_query'] = array(
+						array(
+							'taxonomy' => 'interests',
+							'terms'    => get_field( 'ou_rfi_areas_of_interest', $post->ID )
+						)
+					);
+					break;
+				case 'career':
+					$args['tax_query'] = array(
+						array(
+							'taxonomy' => 'career_paths',
+							'terms'    => get_field( 'ou_rfi_career_paths', $post->ID )
+						)
+					);
+					break;
+				case 'custom':
+					$args['post__in'] = get_field( 'ou_rfi_custom_programs', $post->ID );
+					break;
+				default:
+					return false;
+			}
+		} else if ( ! $process && $post->post_type === 'degree' ) {
+			$args['post__in'] = array( $post->ID );
 		}
 
 		$degrees = get_posts( $args );
