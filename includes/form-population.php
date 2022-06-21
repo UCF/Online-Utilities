@@ -188,8 +188,10 @@ if ( ! function_exists( 'ou_forms_populate_rfi_degrees' ) ) {
 		$filter_by = get_field( 'ou_rfi_filter_by', $post->ID );
 
 		$args = array(
-			'post_type'      => 'degree',
-			'posts_per_page' => -1
+			'post_type' => 'degree',
+			'numberposts' => -1,
+			'orderby' => 'title',
+			'order' => 'ASC'
 		);
 
 		switch( $filter_by ) {
