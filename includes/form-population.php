@@ -49,16 +49,6 @@ if ( ! function_exists( 'ou_forms_populate_degrees' ) ) {
 			}
 
 			global $post;
-			if ( $post &&
-				in_array( $post->post_type, $supported_post_types ) ) {
-
-				// Call the new function
-				$populated = ou_forms_populate_rfi_degrees( $form, $post, $field );
-
-				// If the new function populated the degrees
-				// short circuit the rest of the logic.
-				if ( $populated ) continue;
-			}
 
 			// Try to determine which degree should be pre-selected in the 'degree'
 			// dropdown.
@@ -75,6 +65,17 @@ if ( ! function_exists( 'ou_forms_populate_degrees' ) ) {
 				$selected_degree = $post;
 			} else if ( $post && $default_degree ) {
 				$selected_degree = $default_degree;
+			}
+
+			if ( $post &&
+				in_array( $post->post_type, $supported_post_types ) ) {
+
+				// Call the new function
+				$populated = ou_forms_populate_rfi_degrees( $form, $post, $field, $selected_degree );
+
+				// If the new function populated the degrees
+				// short circuit the rest of the logic.
+				if ( $populated ) continue;
 			}
 
 			// Populate the 'degree' dropdown with options:
@@ -180,7 +181,7 @@ if ( ! function_exists( 'ou_forms_populate_rfi_degrees' ) ) {
 	 * @param GF_Field $field The gravity form field
 	 * @return bool True if the form field was populated, else false
 	 */
-	function ou_forms_populate_rfi_degrees( $form, $post, $field ) {
+	function ou_forms_populate_rfi_degrees( $form, $post, $field, $selected_degree ) {
 		// Return immediately if the switch is set to false
 		if ( ! get_field( 'ou_rfi_customize_degree_list', $post->ID ) ) return false;
 
