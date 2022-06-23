@@ -87,25 +87,25 @@ if ( ! function_exists( 'ou_degree_format_post_data' ) ) {
 			$projections->openings :
 			null;
 
-		// $meta['degree_application_deadlines'] = array();
-		// if ( isset( $deadline_data->application_deadlines ) ) {
-		// 	foreach ( $deadline_data->application_deadlines as $deadline ) {
-		// 		$meta['degree_application_deadlines'][] = array(
-		// 			'admission_term' => $deadline->admission_term,
-		// 			'deadline_type'  => $deadline->deadline_type,
-		// 			'deadline'       => $deadline->display
-		// 		);
-		// 	}
-		// }
+		$meta['degree_application_deadlines'] = array();
+		if ( isset( $deadline_data->application_deadlines ) ) {
+			foreach ( $deadline_data->application_deadlines as $deadline ) {
+				$meta['degree_application_deadlines'][] = array(
+					'admission_term' => $deadline->admission_term,
+					'deadline_type'  => $deadline->deadline_type,
+					'deadline'       => $deadline->display
+				);
+			}
+		}
 
-		// $meta['degree_application_requirements'] = array();
-		// if ( isset( $deadline_data->application_requirements ) ) {
-		// 	foreach ( $deadline_data->application_requirements as $requirement ) {
-		// 		$meta['degree_application_requirements'][] = array(
-		// 			'requirement' => $requirement
-		// 		);
-		// 	}
-		// }
+		$meta['degree_application_requirements'] = array();
+		if ( isset( $deadline_data->application_requirements ) ) {
+			foreach ( $deadline_data->application_requirements as $requirement ) {
+				$meta['degree_application_requirements'][] = array(
+					'requirement' => $requirement
+				);
+			}
+		}
 
 		return $meta;
 	}
