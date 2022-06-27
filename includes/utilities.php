@@ -100,7 +100,7 @@ if ( ! function_exists( 'ou_get_remote_response' ) ) {
 	 * Helper function for retrieving a remote response
 	 *
 	 * @author Jim Barnes
-	 * @since 1.5.0
+	 * @since 2.2.0
 	 * @param mixed $remote The URL to retrieve, or a response array from wp_remote_get()
 	 * @param int $timeout Timeout for the request, in seconds
 	 * @return mixed Array of response data, or null on failure/bad response
@@ -127,7 +127,7 @@ if ( ! function_exists( 'ou_get_remote_response_json' ) ) {
 	 * Helper function for getting remote json
 	 *
 	 * @author Jim Barnes
-	 * @since 3.4.0
+	 * @since 2.2.0
 	 * @param mixed $remote The URL to retrieve, or a response array from wp_remote_get()
 	 * @param mixed $default A default value to return if the response is invalid
 	 * @param int $timeout Timeout for the request, in seconds
