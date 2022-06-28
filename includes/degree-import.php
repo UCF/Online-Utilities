@@ -1,6 +1,37 @@
 <?php
 
+if ( ! function_exists( 'ou_degree_formatted_post_data' ) ) {
+	/**
+	 * Unsets the post_title attribute for existing degrees
+	 * to ensure the title doesn't get overwritten.
+	 *
+	 * @author Jim Barnes
+	 * @since v2.2.0
+	 * @param  array $post_data The incoming post_data
+	 * @param  UCF_Degree_Import $degree A reference to the UCF_Degree_Import object
+	 * @return array
+	 */
+	function ou_degree_formatted_post_data( $post_data, $degree ) {
+		if ( ! $degree->is_new ) {
+			unset( $post_data['post_title'] );
+		}
+
+		return $post_data;
+	}
+
+	add_filter( 'ucf_degree_formatted_post_data', 'ou_degree_formatted_post_data', 10, 2 );
+}
+
 if ( ! function_exists( 'ou_get_catalog_description' ) ) {
+	/**
+	 * Gets the catalog description to store in post_meta
+	 *
+	 * @author Jim Barnes
+	 * @since v2.2.0
+	 * @param  object $program The program data from the UCF Search Service
+	 * @param  string $description_type The description type to be imported
+	 * @return string
+	 */
 	function ou_get_catalog_description( $program, $description_type='Catalog Description' ) {
 		$retval = '';
 
@@ -35,6 +66,15 @@ if ( ! function_exists( 'ou_get_catalog_description' ) ) {
 }
 
 if ( ! function_exists( 'ou_degree_format_post_data' ) ) {
+	/**
+	 * Formats and returns the post_meta for the imported degree
+	 *
+	 * @author Jim Barnes
+	 * @since v2.2.0
+	 * @param  array $meta The post_meta array
+	 * @param  object $program The program object from the UCF Search Service
+	 * @return array
+	 */
 	function ou_degree_format_post_data( $meta, $program ) {
 		$meta['degree_ignore_import'] = 'on';
 		$meta['degree_description'] = ou_get_catalog_description( $program );
