@@ -188,7 +188,7 @@ if ( ! function_exists( 'ou_degree_meta_can_import' ) ) {
 	 * Function that returns true if a lock is unlocked
 	 *
 	 * @author Jim Barnes
-	 * @since v1.5.0
+	 * @since v2.2.0
 	 * @param  array $locks The array of locks to check
 	 * @param  string $key The key to check for
 	 * @return bool
