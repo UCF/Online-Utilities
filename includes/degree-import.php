@@ -77,7 +77,7 @@ if ( ! function_exists( 'ou_degree_format_post_data' ) ) {
 	 * @return array
 	 */
 	function ou_degree_format_post_data( $meta, $program ) {
-		$meta['degree_ignore_import'] = 'on';
+		$meta['degree_import_ignore'] = 'on';
 		$meta['degree_description'] = ou_get_catalog_description( $program );
 
 		$outcomes      = ou_get_remote_response_json( $program->outcomes );
