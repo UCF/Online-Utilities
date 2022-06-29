@@ -40,6 +40,7 @@ if ( ! function_exists( 'ou_get_catalog_description' ) ) {
 		}
 
 		$description_types = UCF_Degree_Config::get_description_types();
+
 		$catalog_desc_type_id = null;
 
 		if ( $description_types ) {
@@ -51,7 +52,7 @@ if ( ! function_exists( 'ou_get_catalog_description' ) ) {
 			}
 		}
 
-		$description = $program->descriptions;
+		$descriptions = $program->descriptions;
 
 		if ( ! empty( $descriptions ) && $catalog_desc_type_id ) {
 			foreach( $descriptions as $d ) {
