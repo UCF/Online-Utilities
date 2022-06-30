@@ -81,7 +81,7 @@ if ( ! function_exists( 'ou_degree_format_post_data' ) ) {
 		$meta['degree_description'] = ou_get_catalog_description( $program );
 
 		$locks = array();
-		$existing_meta = get_post_meta( $existing_id );
+		$existing_meta = $existing_id ? get_post_meta( $existing_id ) : array();
 		$prefix_length = strlen( 'degree_lock_' );
 
 		foreach( $existing_meta as $meta_key => $meta_value ) {
