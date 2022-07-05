@@ -249,8 +249,8 @@ if ( ! function_exists( 'ou_default_program_types' ) ) {
 	 */
 	function ou_default_program_types( $program_types ) {
 		return array(
-			'Online Bachelor',
-			'Online Master',
+			'Online Bachelor\'s',
+			'Online Master\'s',
 			'Online Certificate',
 			'Online Doctorate'
 		);
@@ -275,10 +275,10 @@ if ( ! function_exists( 'ou_degree_program_types' ) ) {
 
 		switch( $level ) {
 			case 'Bachelors':
-				$program_types[] = 'Online Bachelor';
+				$program_types[] = 'Online Bachelor\'s';
 				break;
 			case 'Masters':
-				$program_types[] = 'Online Master';
+				$program_types[] = 'Online Master\'s';
 				break;
 			case 'Certificate':
 				$program_types[]  = 'Online Certificate';
