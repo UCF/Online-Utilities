@@ -14,6 +14,10 @@ Head over to the [Online Utilities wiki](https://github.com/UCF/Online-Utilities
 
 ## Changelog ##
 
+### 2.2.0 ###
+* Adds logic for automated degree importer for Online
+* Adds logic for adjusting RFI forms based on a series of ACF fields in the Child-Theme
+
 ### 2.1.0 ###
 * Adds logic to pre-select a degree whenever a gravity form is on the page that lists degrees within a drop down.
 

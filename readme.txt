@@ -3,7 +3,7 @@ Contributors: ucfwebcom
 Tags: ucf, online
 Requires at least: 4.9.8
 Tested up to: 4.9.8
-Stable tag: 2.1.0
+Stable tag: 2.2.0
 Requires PHP: 5.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/copyleft/gpl-3.0.html
@@ -21,6 +21,10 @@ Head over to the [Online Utilities wiki](https://github.com/UCF/Online-Utilities
 
 
 == Changelog ==
+
+= 2.2.0 =
+* Adds logic for automated degree importer for Online
+* Adds logic for adjusting RFI forms based on a series of ACF fields in the Child-Theme
 
 = 2.1.0 =
 * Adds logic to pre-select a degree whenever a gravity form is on the page that lists degrees within a drop down.
