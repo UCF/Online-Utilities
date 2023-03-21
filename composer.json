@@ -1,0 +1,8 @@
+{
+    "name": "ucf/online-utilities",
+    "description": "Provides functionality and other utilities for the UCF Online website.",
+    "type": "wordpress-plugin",
+    "require": {
+        "composer/installers": "~1.0"
+    }
+}
