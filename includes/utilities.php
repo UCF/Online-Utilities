@@ -66,6 +66,9 @@ if ( ! function_exists( 'ou_append_degrees_tax_query' ) ) {
  * @return array
  **/
 function ou_parse_google_analytics_cookie() {
+	// Short circuit if there isn't a cookie
+	if ( ! array_key_exists( '__utmz', $_COOKIE ) ) return array();
+
 	$cookie = $_COOKIE['__utmz'];
 	$retval = array();
 	if ( $cookie ) {
